@@ -27,3 +27,9 @@ chmod +x google_chrome.zsh
 chmod +x slack.zsh
 ./slack.zsh
 ```
+
+## Install Cursor IDE
+```zsh
+chmod +x cursor_ide.zsh
+./cursor_ide.zsh
+```

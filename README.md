@@ -5,7 +5,7 @@ chmod +x git.sh
 ./git.sh
 ```
 
-## Install and setup git
+## Install and setup GitHub CLI
 ```zsh
 chmod +x gh.sh
 ./gh.sh

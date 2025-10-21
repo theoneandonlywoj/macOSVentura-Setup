@@ -53,8 +53,8 @@ fi
 if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
   echo "🧩 Adding Homebrew to PATH in ~/.zshrc..."
   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
-  source ~/.zshrc
-  echo "✅ PATH updated for Homebrew binaries."
+  echo "ℹ️  Please restart your shell or run 'source ~/.zshrc' to update your PATH."
+  echo "✅ PATH update instruction provided."
 fi
 
 # === 5. Initialize Podman machine ===

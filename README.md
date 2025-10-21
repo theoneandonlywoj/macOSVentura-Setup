@@ -4,6 +4,13 @@
 chmod +x git.sh
 ./git.sh
 ```
+
+## Install and setup git
+```zsh
+chmod +x gh.sh
+./gh.sh
+```
+
 ## Install Brew
 ```zsh
 chmod +x brew.zsh
@@ -32,4 +39,22 @@ chmod +x slack.zsh
 ```zsh
 chmod +x cursor_ide.zsh
 ./cursor_ide.zsh
+```
+
+## Install 1Password
+```zsh
+chmod +x 1password.zsh
+./1password.zsh
+```
+
+## Install Mise
+```zsh
+chmod +x mise.zsh
+./mise.zsh
+```
+
+## Install Elixir and Erlang
+```zsh
+chmod +x elixir_and_erlang.zsh
+./elixir_and_erlang.zsh
 ```

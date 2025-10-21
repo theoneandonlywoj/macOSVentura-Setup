@@ -53,8 +53,12 @@ if [[ "$dock_add" = "yes" ]]; then
   echo "🧭 Adding 1Password to Dock..."
 
   # Backup Dock preferences
-  defaults export com.apple.dock - > ~/Desktop/com.apple.dock.backup.1password.plist 2>/dev/null
-  echo "💾 Dock backup saved to ~/Desktop/com.apple.dock.backup.1password.plist"
+  defaults export com.apple.dock - > ~/Desktop/com.apple.dock.backup.1password.plist
+  if [[ $? -ne 0 ]]; then
+    echo "⚠️  Failed to backup Dock preferences! You may not be able to restore your previous Dock layout."
+  else
+    echo "💾 Dock backup saved to ~/Desktop/com.apple.dock.backup.1password.plist"
+  fi
 
   # Construct Dock entry XML snippet
   dock_entry="<dict>

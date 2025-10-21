@@ -67,7 +67,15 @@ echo "✅ Elixir $ELIXIR_VER installed and activated."
 echo
 echo "🧪 Verifying installations..."
 erlang_v=$(erl -eval 'io:format("~s~n", [erlang:system_info(otp_release)]), halt().' -noshell)
+if ! command -v elixir >/dev/null 2>&1; then
+  echo "❌ Elixir command not found in PATH. Please check your installation and ensure Mise has set up your environment correctly."
+  exit 1
+fi
 elixir_v=$(elixir -v | head -n1 | awk '{print $2}')
+if [[ -z "$elixir_v" ]]; then
+  echo "❌ Failed to detect Elixir version. Please check your installation and PATH."
+  exit 1
+fi
 
 echo "📌 Erlang version: $erlang_v"
 echo "📌 Elixir version: $elixir_v"

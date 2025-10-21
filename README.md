@@ -33,3 +33,9 @@ chmod +x slack.zsh
 chmod +x cursor_ide.zsh
 ./cursor_ide.zsh
 ```
+
+## Install Podman (Docker replacement)
+```zsh
+chmod +x podman.zsh
+./podman.zsh
+```

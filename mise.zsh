@@ -57,9 +57,14 @@ if ! grep -q 'mise activate zsh' ~/.zshrc; then
   echo "💡 Adding Mise activation to ~/.zshrc..."
   echo '' >> ~/.zshrc
   echo '# Initialize Mise (language version manager)' >> ~/.zshrc
-  echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+  echo 'eval "$(/usr/local/bin/mise activate zsh)"' >> ~/.zshrc
 else
   echo "✅ Mise already initialized in ~/.zshrc."
+  # Update existing activation to use full path if needed
+  if grep -q 'eval "$(mise activate zsh)"' ~/.zshrc; then
+    echo "💡 Updating Mise activation to use full path..."
+    sed -i '' 's|eval "$(mise activate zsh)"|eval "$(/usr/local/bin/mise activate zsh)"|' ~/.zshrc
+  fi
 fi
 
 # Load Mise immediately in this shell

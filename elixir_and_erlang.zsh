@@ -66,28 +66,36 @@ echo "✅ Elixir $ELIXIR_VER installed and activated."
 # === 5. Verify installations ===
 echo
 echo "🧪 Verifying installations..."
-erlang_v=$(erl -eval 'io:format("~s~n", [erlang:system_info(otp_release)]), halt().' -noshell)
+
+# Verify Erlang version using mise exec to ensure proper environment
+erlang_v=$(mise exec -- erl -eval 'io:format("~s~n", [erlang:system_info(otp_release)]), halt().' -noshell 2>/dev/null)
 if [[ -z "$erlang_v" ]]; then
-  echo "❌ Failed to retrieve Erlang version. The 'erl' command may not be in your PATH or may have failed to run."
+  echo "❌ Failed to retrieve Erlang version. The 'erl' command may have failed to run."
   exit 1
 fi
-if ! command -v elixir >/dev/null 2>&1; then
-  echo "❌ Elixir command not found in PATH. Please check your installation and ensure Mise has set up your environment correctly."
-  exit 1
-fi
-elixir_v=$(elixir -v | head -n1 | awk '{print $2}')
+
+# Verify Elixir version using mise exec to ensure proper environment
+elixir_v=$(mise exec -- elixir -v 2>/dev/null | grep "Elixir" | awk '{print $2}')
 if [[ -z "$elixir_v" ]]; then
-  echo "❌ Failed to detect Elixir version. Please check your installation and PATH."
+  echo "❌ Failed to detect Elixir version. Please check your installation."
   exit 1
 fi
 
 echo "📌 Erlang version: $erlang_v"
 echo "📌 Elixir version: $elixir_v"
 
-if [[ "$erlang_v" = "$ERLANG_VER" && "$elixir_v" = "$ELIXIR_VER" ]]; then
+# Check if versions match (allowing for minor differences in format)
+erlang_major=$(echo "$erlang_v" | cut -d. -f1)
+erlang_expected_major=$(echo "$ERLANG_VER" | cut -d. -f1)
+elixir_base=$(echo "$elixir_v" | cut -d- -f1)
+elixir_expected_base=$(echo "$ELIXIR_VER" | cut -d- -f1)
+
+if [[ "$erlang_major" = "$erlang_expected_major" && "$elixir_base" = "$elixir_expected_base" ]]; then
   echo "✅ Erlang + Elixir setup complete!"
 else
   echo "⚠️  Version mismatch detected. Check Mise installation."
+  echo "   Expected Erlang: $ERLANG_VER (got: $erlang_v)"
+  echo "   Expected Elixir: $ELIXIR_VER (got: $elixir_v)"
 fi
 
 # === 6. Wrap-up ===

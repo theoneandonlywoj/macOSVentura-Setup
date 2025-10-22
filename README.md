@@ -41,6 +41,18 @@ chmod +x cursor_ide.zsh
 ./cursor_ide.zsh
 ```
 
+## Install Podman (Docker replacement)
+```zsh
+chmod +x podman.zsh
+./podman.zsh
+```
+
+## Install Docker Compose
+```zsh
+chmod +x docker_compose.zsh
+./docker_compose.zsh
+```
+
 ## Install 1Password
 ```zsh
 chmod +x 1password.zsh

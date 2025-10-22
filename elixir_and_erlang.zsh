@@ -98,6 +98,82 @@ else
   echo "   Expected Elixir: $ELIXIR_VER (got: $elixir_v)"
 fi
 
+# === Optional: Install ElixirLS (Language Server) ===
+echo
+echo "💻 Installing ElixirLS (Elixir Language Server)..."
+
+# Create ElixirLS directory
+ELIXIRLS_DIR="$HOME/.elixir-ls"
+mkdir -p "$ELIXIRLS_DIR"
+
+# Get the latest release URL
+echo "📥 Fetching latest ElixirLS release..."
+
+# Try multiple methods to get the latest release URL
+LATEST_RELEASE_URL=""
+
+# Method 1: Try GitHub API with proper JSON parsing
+if command -v jq >/dev/null 2>&1; then
+  LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/elixir-lsp/elixir-ls/releases/latest | jq -r '.assets[] | select(.name | test("elixir-ls-v.*\\.zip$")) | .browser_download_url' 2>/dev/null)
+fi
+
+# Method 2: Fallback to grep if jq is not available
+if [[ -z "$LATEST_RELEASE_URL" ]]; then
+  LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/elixir-lsp/elixir-ls/releases/latest | grep -o '"browser_download_url":"[^"]*elixir-ls-v[^"]*\.zip"' | cut -d '"' -f 4)
+fi
+
+# Method 3: Use a known working URL as fallback
+if [[ -z "$LATEST_RELEASE_URL" ]]; then
+  echo "⚠️  Could not fetch latest release URL. Using fallback method..."
+  # Get the latest release tag first
+  LATEST_TAG=$(curl -s https://api.github.com/repos/elixir-lsp/elixir-ls/releases/latest | grep '"tag_name"' | cut -d '"' -f 4)
+  if [[ -n "$LATEST_TAG" ]]; then
+    LATEST_RELEASE_URL="https://github.com/elixir-lsp/elixir-ls/releases/download/${LATEST_TAG}/elixir-ls-${LATEST_TAG}.zip"
+  fi
+fi
+
+if [[ -z "$LATEST_RELEASE_URL" ]]; then
+  echo "❌ Failed to fetch latest release URL. Skipping ElixirLS installation."
+else
+  echo "📦 Downloading ElixirLS from: $LATEST_RELEASE_URL"
+  
+  # Download and extract the release
+  TEMP_DIR=$(mktemp -d)
+  cd "$TEMP_DIR"
+  
+  curl -L -o elixir-ls.zip "$LATEST_RELEASE_URL"
+  
+  if [[ $? -ne 0 ]]; then
+    echo "❌ Failed to download ElixirLS release."
+    cd - >/dev/null
+    rm -rf "$TEMP_DIR"
+  else
+    echo "📦 Extracting ElixirLS..."
+    unzip -q elixir-ls.zip -d "$ELIXIRLS_DIR"
+    
+    if [[ $? -ne 0 ]]; then
+      echo "❌ Failed to extract ElixirLS."
+      cd - >/dev/null
+      rm -rf "$TEMP_DIR"
+    else
+      # Make the language server script executable
+      chmod +x "$ELIXIRLS_DIR/language_server.sh"
+      
+      # Create a symlink for easy access
+      mkdir -p ~/.mix/escripts
+      ln -sf "$ELIXIRLS_DIR/language_server.sh" ~/.mix/escripts/elixir-ls
+      
+      echo "✅ ElixirLS installed successfully!"
+      echo "   Binary located at: $ELIXIRLS_DIR/language_server.sh"
+      echo "   Symlink created at: ~/.mix/escripts/elixir-ls"
+      
+      # Clean up
+      cd - >/dev/null
+      rm -rf "$TEMP_DIR"
+    fi
+  fi
+fi 
+
 # === 6. Wrap-up ===
 echo
 echo "💡 Next steps:"

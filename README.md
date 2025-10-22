@@ -45,6 +45,13 @@ chmod +x cursor_ide.zsh
 ```zsh
 chmod +x podman.zsh
 ./podman.zsh
+```
+
+## Install Docker Compose
+```zsh
+chmod +x docker_compose.zsh
+./docker_compose.zsh
+```
 
 ## Install 1Password
 ```zsh

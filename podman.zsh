@@ -10,7 +10,6 @@ echo
 # === Configuration ===
 podman_bin="/opt/homebrew/bin/podman"
 zshrc_path="$HOME/.zshrc"
-alias_line="alias docker='podman'"
 
 echo "📦 Target binary: $podman_bin"
 echo "🧠 Shell: Zsh"
@@ -50,19 +49,25 @@ if [[ $? -ne 0 ]]; then
   exit 1
 fi
 
-# === 4. Add Docker alias to Zsh ===
+# === 4. Add Docker alias and Podman socket setup to Zsh ===
 echo
-echo "🔗 Adding Docker alias to ~/.zshrc..."
-if grep -Fxq "$alias_line" "$zshrc_path"; then
-  echo "✅ Docker alias already exists in ~/.zshrc"
+echo "🔗 Ensuring Docker alias and Podman socket setup in ~/.zshrc..."
+
+setup_block="# --- Podman Docker alias and socket setup ---
+if command -v podman >/dev/null 2>&1; then
+  alias docker=podman
+  export DOCKER_HOST=\"unix://\$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}' 2>/dev/null)\"
+fi"
+
+if grep -q "Podman Docker alias and socket setup" "$zshrc_path"; then
+  echo "✅ Docker alias + Podman socket setup already present in ~/.zshrc"
 else
-  echo "\n# Docker alias using Podman" >> "$zshrc_path"
-  echo "$alias_line" >> "$zshrc_path"
-  echo "✅ Docker alias added to ~/.zshrc"
+  echo "\n$setup_block" >> "$zshrc_path"
+  echo "✅ Added Docker alias + Podman socket setup to ~/.zshrc"
 fi
 
-# Apply immediately
-eval "$alias_line"
+# Apply immediately for current session
+eval "$setup_block"
 
 # === 5. Verify Podman functionality ===
 echo
@@ -97,4 +102,3 @@ echo "   • podman images                 → List container images"
 echo "   • podman machine stop           → Stop Podman VM"
 echo
 echo "🐳 You can now use 'docker' commands — powered by Podman (just restart the terminal)!"
-

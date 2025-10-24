@@ -2,7 +2,7 @@
 # === wget.zsh ===
 # Purpose: Install wget on macOS Ventura
 # Shell: Zsh (default on macOS Ventura)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🌐 Starting wget installation on macOS Ventura..."
 echo

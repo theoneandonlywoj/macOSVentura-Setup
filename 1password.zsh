@@ -2,7 +2,7 @@
 # === install_1password.zsh ===
 # Purpose: Install 1Password on macOS Ventura (with optional Dock integration)
 # Shell: Zsh (default)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🚀 Starting 1Password installation on macOS Ventura..."
 echo

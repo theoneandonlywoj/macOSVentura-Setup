@@ -2,7 +2,7 @@
 # === iterm2.zsh ===
 # Purpose: Install iTerm2 + Oh My Zsh + popular themes on macOS Ventura
 # Shell: Zsh (default on macOS Ventura)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🚀 Starting iTerm2 + Oh My Zsh + Themes installation on macOS Ventura..."
 echo

@@ -1,5 +1,7 @@
 #!/bin/zsh
-# === Slack Installer + Dock Setup for macOS Ventura (Zsh) ===
+# === slack.zsh ===
+# Purpose: Install Slack and add it to the Dock on macOS Ventura with Zsh
+# Shell: Zsh (default on macOS Ventura)
 # Author: theoneandonlywoj
 # Description:
 #   Installs Slack via Homebrew or .dmg fallback,

@@ -1,8 +1,8 @@
 #!/bin/zsh
-# === install_github_cli.zsh ===
+# === gh.zsh ===
 # Purpose: Install GitHub CLI (gh) on macOS Ventura with Zsh
 # Shell: Zsh (default on macOS Ventura)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🚀 Starting GitHub CLI (gh) installation on macOS Ventura..."
 echo

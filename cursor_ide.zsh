@@ -2,7 +2,7 @@
 # === cursor_ide.zsh ===
 # Purpose: Install Cursor AI code editor on macOS Ventura and add to Dock after Slack
 # Shell: Zsh (default on macOS Ventura)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🚀 Starting installation of Cursor AI (the vibe-coding editor) on macOS Ventura..."
 echo

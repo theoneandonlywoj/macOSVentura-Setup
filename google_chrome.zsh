@@ -1,5 +1,7 @@
 #!/bin/zsh
-# === Google Chrome Installer + Dock Setup for macOS Ventura (Zsh) ===
+# === google_chrome.zsh ===
+# Purpose: Install Google Chrome and add it to the Dock on macOS Ventura with Zsh
+# Shell: Zsh (default on macOS Ventura)
 # Author: theoneandonlywoj
 # Description:
 #   Installs Google Chrome via Homebrew or .dmg, adds it to the Dock

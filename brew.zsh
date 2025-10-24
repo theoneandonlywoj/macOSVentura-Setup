@@ -2,7 +2,7 @@
 # === brew.zsh ===
 # Purpose: Install Homebrew package manager on macOS Ventura
 # Shell: Zsh (default on macOS Ventura)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🚀 Starting Homebrew installation on macOS Ventura..."
 echo "📦 Preparing environment..."

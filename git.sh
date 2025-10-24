@@ -1,5 +1,7 @@
 #!/bin/zsh
-# === GitHub SSH + Git Config Setup for macOS Ventura (Zsh) ===
+# === git.zsh ===
+# Purpose: Setup GitHub SSH + Git Config for macOS Ventura with Zsh
+# Shell: Zsh (default on macOS Ventura)
 # Author: theoneandonlywoj
 # Description:
 #   Generates an SSH key, starts ssh-agent, copies it to clipboard,
@@ -10,7 +12,7 @@ key_path="$HOME/.ssh/id_ed25519"
 pub_key="$HOME/.ssh/id_ed25519.pub"
 ssh_config="$HOME/.ssh/config"
 
-echo "🔧 GitHub SSH + Git Config Setup (macOS Ventura, Zsh)"
+echo "� Starting GitHub SSH + Git Config Setup on macOS Ventura..."
 echo "----------------------------------------------------"
 
 # === 1. Check if key already exists ===

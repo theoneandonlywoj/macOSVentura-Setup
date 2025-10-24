@@ -1,8 +1,8 @@
 #!/bin/zsh
-# === install_mise.zsh ===
+# === mise.zsh ===
 # Purpose: Install Mise (version manager for programming languages) on macOS Ventura
 # Shell: Zsh (default on macOS Ventura)
-# Author: theoneandonlywoj (style inspired)
+# Author: theoneandonlywoj
 
 echo "🚀 Starting Mise installation on macOS Ventura..."
 echo

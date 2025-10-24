@@ -1,7 +1,7 @@
 #!/bin/zsh
 # === dock_cleanup.zsh ===
 # Purpose: Safely remove specific default macOS apps from Dock (Ventura) using dockutil
-# Author: ChatGPT (polished version)
+# Author: theoneandonlywoj
 # Requirements: brew install dockutil
 
 apps_to_remove=(

@@ -1,6 +1,6 @@
 #!/bin/zsh
 # === install_1password.zsh ===
-# Purpose: Install 1Password on macOS Ventura (with optional Dock integration)
+# Purpose: Install 1Password and 1Password CLI on macOS Ventura (with optional Dock integration)
 # Shell: Zsh (default)
 # Author: theoneandonlywoj
 
@@ -45,6 +45,24 @@ if [[ -d "$app_path" ]]; then
 else
   echo "❌ 1Password installation failed. Aborting."
   exit 1
+fi
+
+# === 3a. Install 1Password CLI ===
+echo
+echo "📥 Installing 1Password CLI (op)..."
+if command -v op >/dev/null 2>&1; then
+  echo "✅ 1Password CLI is already installed."
+  op_version=$(op --version 2>/dev/null)
+  echo "📌 Current version: $op_version"
+else
+  brew install 1password-cli
+  if [[ $? -eq 0 ]]; then
+    echo "✅ 1Password CLI installed successfully."
+    op_version=$(op --version 2>/dev/null)
+    echo "📌 Installed version: $op_version"
+  else
+    echo "⚠️  Failed to install 1Password CLI. You can install it manually later with: brew install 1password-cli"
+  fi
 fi
 
 # === 4. Optionally add to Dock ===
@@ -108,5 +126,16 @@ echo "   • Launch 1Password via Spotlight (⌘ + Space → '1Password')"
 echo "   • Sign in with your 1Password account"
 echo "   • Configure browser extensions or Touch ID if desired"
 echo
-echo "🔐 You’re now ready for secure password management."
+echo "💻 1Password CLI usage:"
+echo "   • Sign in to CLI: op signin"
+echo "   • List items: op item list"
+echo "   • Get document: op document get <name> --output <file>"
+echo "   • Read secret: op read 'op://vault/item/field'"
+echo
+echo "📚 Useful CLI examples:"
+echo "   op document list                      # List all documents"
+echo "   op item get 'item-name'              # Get item details"
+echo "   op document get 'kube-config' -o ~/.kube/config  # Export kubeconfig"
+echo
+echo "🔐 You're now ready for secure password management."
 
